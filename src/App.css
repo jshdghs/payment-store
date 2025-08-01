@@ -1,0 +1,132 @@
+ /* Reset and Base */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+/* Headings */
+h1, h2 {
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+  background-color: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #1b5e20;
+}
+
+/* Input Fields */
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+  height: 250px;              /* ✅ FIX: limit the full card height */
+  overflow: hidden;           /* ✅ Hides anything outside */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card img {
+  max-height: 100px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+
+
+
+.card h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+}
+
+.card p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Cart Box */
+.cart-box {
+  background-color: white;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* Payment Box */
+.payment-box {
+  background-color: white;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* Success Box */
+.success-box {
+  margin-top: 30px;
+  background-color: #e0f7e9;
+  color: #1b5e20;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .card img {
+    height: 120px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+  }
+
+  .card p {
+    font-size: 13px;
+  }
+}
