@@ -1,132 +1,210 @@
- /* Reset and Base */
+ /* General */
 body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background-color: #f5f5f5;
+  padding: 0;
+  background: #f9f9f9;
   color: #333;
 }
 
-.container {
+.app-container {
   max-width: 1200px;
   margin: auto;
-  padding: 30px 20px;
+  padding: 20px;
 }
 
-/* Headings */
-h1, h2 {
-  color: #222;
+h1 {
+  text-align: center;
   margin-bottom: 20px;
+  color: #2d2d2d;
 }
 
-/* Buttons */
-button {
-  background-color: #2e7d32;
-  color: #fff;
+/* Search Input */
+.search-input {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px 14px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Layout */
+.main-content {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Product List */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 65%;
+}
+
+.product-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 180px;
+}
+
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  margin: 12px 0 4px;
+  font-size: 16px;
+}
+
+.product-card p {
+  margin: 0 0 8px;
+  font-weight: bold;
+}
+
+.product-card button {
+  padding: 8px 12px;
+  background: #3ba469;
+  color: white;
   border: none;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
 
-button:hover {
-  background-color: #1b5e20;
+.product-card button:hover {
+  background: #2c8a57;
 }
 
-/* Input Fields */
-input {
+/* Cart */
+.cart {
+  width: 30%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cart h2 {
+  margin-top: 0;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.cart button {
+  background: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+.cart h3 {
+  margin-top: 10px;
+}
+
+.cart > button {
+  margin-top: 10px;
+  padding: 10px 14px;
+  width: 100%;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cart > button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.cart > button:hover:enabled {
+  background: #0056b3;
+}
+
+/* Payment Page */
+.payment-page {
+  background: #fff;
+  padding: 30px;
+  max-width: 400px;
+  margin: 40px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payment-page h2 {
+  text-align: center;
+}
+
+.payment-page input {
+  display: block;
   width: 100%;
   padding: 10px;
-  font-size: 14px;
-  margin: 8px 0;
+  margin-bottom: 14px;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  border: 1px solid hsl(0, 66%, 78%);
 }
 
-/* Product Grid */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  text-align: center;
-  transition: transform 0.2s ease;
-  height: 250px;              /* ✅ FIX: limit the full card height */
-  overflow: hidden;           /* ✅ Hides anything outside */
+.payment-buttons {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
-.card img {
-  max-height: 100px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 10px;
+.payment-buttons button {
+  flex: 1;
+  margin: 5px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
 }
 
-
-
-
-.card h3 {
-  font-size: 16px;
-  margin: 10px 0 5px;
+.payment-buttons button:first-child {
+  background: #6c757d;
 }
 
-.card p {
-  font-weight: bold;
-  margin-bottom: 10px;
+.payment-buttons button:last-child {
+  background: #28a745;
 }
 
-/* Cart Box */
-.cart-box {
-  background-color: white;
-  padding: 20px;
-  margin-top: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-}
-
-/* Payment Box */
-.payment-box {
-  background-color: white;
-  padding: 20px;
-  margin-top: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-}
-
-/* Success Box */
-.success-box {
-  margin-top: 30px;
-  background-color: #e0f7e9;
-  color: #1b5e20;
-  padding: 20px;
-  border-radius: 12px;
+/* Success Page */
+.success-page {
   text-align: center;
-  font-size: 16px;
+  padding: 50px;
 }
 
-/* Responsive */
-@media screen and (max-width: 600px) {
-  .card img {
-    height: 120px;
-  }
+.success-page h2 {
+  color: green;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-  .card h3 {
-    font-size: 14px;
-  }
-
-  .card p {
-    font-size: 13px;
-  }
+.success-page button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }

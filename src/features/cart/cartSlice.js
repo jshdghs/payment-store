@@ -12,14 +12,13 @@ const cartSlice = createSlice({
       state.totalAmount += action.payload.price;
     },
     removeFromCart: (state, action) => {
-      const itemId = action.payload;
-      const itemToRemove = state.cartItems.find(item => item.id === itemId);
-      if (itemToRemove) {
-        state.cartItems = state.cartItems.filter(item => item.id !== itemId);
-        state.totalAmount -= itemToRemove.price;
+      const index = state.cartItems.findIndex(item => item.id === action.payload);
+      if (index !== -1) {
+        state.totalAmount -= state.cartItems[index].price;
+        state.cartItems.splice(index, 1);
       }
     },
-    clearCart: (state) => {
+    clearCart: state => {
       state.cartItems = [];
       state.totalAmount = 0;
     },

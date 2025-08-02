@@ -1,136 +1,173 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart, clearCart } from '../features/cart/cartSlice';
-import ProductCard from '../components/ProductCard';
-import SearchBar from '../components/SearchBar';
+import '../App.css';
 
 const products = [
   {
     id: 1,
-    name: 'Nike Air Max 270',
+    name: 'Nike Air Max',
     price: 120,
-    image: 'https://images.pexels.com/photos/1280064/pexels-photo-1280064.jpeg'
+    image: 'https://thumblr.uniid.it/product/352916/045f2653b5d7.jpg?width=1920&format=webp&q=75',
   },
   {
     id: 2,
-    name: 'Adidas Ultraboost Light',
-    price: 140,
-    image: 'https://images.pexels.com/photos/1750045/pexels-photo-1750045.jpeg'
+    name: 'Adidas Ultraboost',
+    price: 150,
+    image: 'https://thumblr.uniid.it/product/373236/46e72d99af3f.jpg?width=1920&format=webp&q=75',
   },
   {
     id: 3,
-    name: 'Puma RS-X Efekt',
-    price: 90,
-    image: 'https://images.pexels.com/photos/2759779/pexels-photo-2759779.jpeg'
+    name: 'Puma Runner',
+    price: 100,
+    image: 'https://thumblr.uniid.it/product/385894/63d141f08121.jpg?width=640&format=webp&q=75',
   },
   {
     id: 4,
-    name: 'Converse Chuck Taylor',
-    price: 65,
-    image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg'
+    name: 'Reebok Flexagon',
+    price: 110,
+    image: 'https://thumblr.uniid.it/product/291976/522c9cdcb217.jpg?width=640&format=webp&q=75',
   },
   {
     id: 5,
-    name: 'Reebok Classic Leather',
-    price: 75,
-    image: 'https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg'
+    name: 'New Balance Fresh Foam',
+    price: 130,
+    image: 'https://thumblr.uniid.it/product/392862/610037036365.jpg?width=640&format=webp&q=75',
   },
   {
     id: 6,
-    name: 'New Balance 997H',
-    price: 100,
-    image: 'https://images.pexels.com/photos/7543639/pexels-photo-7543639.jpeg'
+    name: 'Under Armour HOVR',
+    price: 125,
+    image: 'https://thumblr.uniid.it/product/384408/639ff462382f.jpg?width=640&format=webp&q=75',
   },
   {
     id: 7,
-    name: 'Vans Old Skool',
-    price: 60,
-    image: 'https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg'
+    name: 'Asics Gel Kayano',
+    price: 140,
+    image: 'https://thumblr.uniid.it/product/373235/0917c63b56d6.jpg?width=640&format=webp&q=75',
   },
   {
     id: 8,
-    name: 'Asics Gel-Kayano',
-    price: 130,
-    image: 'https://images.pexels.com/photos/18946887/pexels-photo-18946887.jpeg'
+    name: 'Converse Chuck Taylor',
+    price: 90,
+    image: 'https://thumblr.uniid.it/product/384245/6fbf256d38e1.jpg?width=640&format=webp&q=75',
   },
   {
     id: 9,
-    name: 'Fila Disruptor II',
-    price: 95,
-    image: 'https://images.pexels.com/photos/2442889/pexels-photo-2442889.jpeg'
+    name: 'Vans Old Skool',
+    price: 85,
+    image: 'https://thumblr.uniid.it/product/408087/c936660e6415.jpg?width=640&format=webp&q=75',
   },
   {
     id: 10,
     name: 'Jordan Retro 1',
-    price: 150,
-    image: 'https://images.pexels.com/photos/12739960/pexels-photo-12739960.jpeg'
-  }
+    price: 160,
+    image: 'https://thumblr.uniid.it/product/380174/a719f00b6cf6.jpg?width=640&format=webp&q=75',
+  },
 ];
+
 
 function HomePage() {
   const dispatch = useDispatch();
-  const { cartItems, totalAmount } = useSelector(state => state.cart);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showPayment, setShowPayment] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const cartItems = useSelector(state => state.cart.cartItems);
+  const total = useSelector(state => state.cart.totalAmount);
 
-  const filteredProducts = products.filter(p =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [view, setView] = useState('shop'); // 'shop' | 'payment' | 'success'
+  const [search, setSearch] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardName, setCardName] = useState('');
 
-  const handlePayment = (e) => {
-    e.preventDefault();
-    dispatch(clearCart());
-    setShowPayment(false);
-    setPaymentSuccess(true);
+  const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+
+  const handlePay = () => {
+    if (cardNumber && cardName) {
+      dispatch(clearCart());
+      setView('success');
+    } else {
+      alert('Please enter valid card details');
+    }
   };
 
   return (
-    <div className="container">
+    <div className="app-container">
       <h1>Shoe Store</h1>
 
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      {view === 'shop' && (
+        <>
+          <input
+            type="text"
+            placeholder="Search shoes..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="search-input"
+          />
 
-      <div className="product-grid">
-        {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+          <div className="main-content">
+            <div className="product-list">
+              {filtered.map(product => (
+                <div key={product.id} className="product-card">
+                  <img src={product.image} alt={product.name} />
+                  <h3>{product.name}</h3>
+                  <p>${product.price}</p>
+                  <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
+                </div>
+              ))}
+            </div>
 
-      <div className="cart-box">
-        <h2>🛒 Your Cart</h2>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty.</p>
-        ) : (
-          <>
-            {cartItems.map(item => (
-              <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-                <span>{item.name} - ${item.price}</span>
-                <button onClick={() => dispatch(removeFromCart(item.id))}>Remove</button>
-              </div>
-            ))}
-            <h3>Total: ${totalAmount}</h3>
-            <button onClick={() => setShowPayment(true)}>Proceed to Payment</button>
-          </>
-        )}
-      </div>
+            <div className="cart">
+              <h2>Cart</h2>
+              {cartItems.length === 0 ? (
+                <p>Cart is empty</p>
+              ) : (
+                <ul>
+                  {cartItems.map((item, index) => (
+                    <li key={index}>
+                      {item.name} - ${item.price}
+                      <button onClick={() => dispatch(removeFromCart(item.id))}>❌</button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <h3>Total: ${total}</h3>
+              <button
+                disabled={cartItems.length === 0}
+                onClick={() => setView('payment')}
+              >
+                Proceed to Payment
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
-      {showPayment && (
-        <div className="payment-box">
-          <h2>💳 Payment</h2>
-          <form onSubmit={handlePayment}>
-            <input type="text" placeholder="Card Number" required />
-            <input type="text" placeholder="Expiry Date" required />
-            <input type="text" placeholder="CVV" required />
-            <button type="submit">Pay</button>
-          </form>
+      {view === 'payment' && (
+        <div className="payment-page">
+          <h2>Payment Page</h2>
+          <p>Total: ${total}</p>
+          <input
+            type="text"
+            placeholder="Cardholder Name"
+            value={cardName}
+            onChange={e => setCardName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Card Number"
+            maxLength="16"
+            value={cardNumber}
+            onChange={e => setCardNumber(e.target.value)}
+          />
+          <div className="payment-buttons">
+            <button onClick={() => setView('shop')}>Back to Cart</button>
+            <button onClick={handlePay}>Pay Now</button>
+          </div>
         </div>
       )}
 
-      {paymentSuccess && (
-        <div className="success-box">
+      {view === 'success' && (
+        <div className="success-page">
           <h2>✅ Payment Successful!</h2>
-          <p>Thank you for your purchase.</p>
+          <button onClick={() => setView('shop')}>Back to Home</button>
         </div>
       )}
     </div>
@@ -138,4 +175,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

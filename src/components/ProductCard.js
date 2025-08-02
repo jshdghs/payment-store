@@ -6,8 +6,8 @@ function ProductCard({ product }) {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: 20, borderRadius: 8 }}>
-      <img src={product.image} alt={product.name} width="20%" />
+    <div className="product-card">
+      <img src={product.image} alt={product.name} />
       <h3>{product.name}</h3>
       <p>${product.price}</p>
       <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
@@ -16,4 +16,3 @@ function ProductCard({ product }) {
 }
 
 export default ProductCard;
-
